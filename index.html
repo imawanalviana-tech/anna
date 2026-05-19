@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website Saya</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Plus Jakarta Sans', sans-serif; }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div id="app" class="h-full w-full overflow-auto bg-gray-50">
+   <header id="header" class="bg-blue-600 text-white py-5 px-6 text-center">
+    <h1 id="site-title" class="text-2xl font-bold">Website Saya</h1>
+    <p class="text-blue-100 text-sm mt-1">Belajar HTML &amp; CSS</p>
+   </header>
+   <nav class="bg-blue-800 py-3 px-4 text-center space-x-6"><a href="#" class="text-white font-semibold hover:text-blue-200 transition">Home</a> <a href="#" class="text-white font-semibold hover:text-blue-200 transition">Tentang</a> <a href="#" class="text-white font-semibold hover:text-blue-200 transition">Layanan</a> <a href="#" class="text-white font-semibold hover:text-blue-200 transition">Kontak</a>
+   </nav>
+   <section class="bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-center py-20 px-6">
+    <h1 id="hero-heading" class="text-4xl md:text-5xl font-extrabold mb-3">Selamat Datang</h1>
+    <p id="hero-subtitle" class="text-lg text-blue-100 mb-6">Membuat website sederhana dengan HTML</p><button id="hero-btn" class="bg-white text-blue-600 font-bold px-6 py-3 rounded-lg hover:bg-gray-100 transition shadow-lg">Klik Saya</button>
+   </section>
+   <main class="max-w-4xl mx-auto px-5 py-10 space-y-6">
+    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+     <h2 class="text-xl font-bold text-gray-800 mb-2">Tentang Website</h2>
+     <p class="text-gray-600 leading-relaxed">Ini adalah contoh halaman index.html sederhana dengan desain modern menggunakan HTML dan CSS tanpa framework.</p>
+    </div>
+    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+     <h2 class="text-xl font-bold text-gray-800 mb-2">Fitur</h2>
+     <ul class="text-gray-600 space-y-2 mt-3">
+      <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-5 h-5 text-green-500"></i> Responsive Design</li>
+      <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-5 h-5 text-green-500"></i> Modern UI</li>
+      <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-5 h-5 text-green-500"></i> Mudah diedit</li>
+     </ul>
+    </div>
+   </main>
+   <footer class="bg-gray-900 text-gray-400 text-center py-5 text-sm">
+    <p>© 2026 Website Saya. All Rights Reserved.</p>
+   </footer>
+  </div>
+  <script>
+    lucide.createIcons();
+
+    const defaultConfig = {
+      site_title: "Website Saya",
+      hero_heading: "Selamat Datang",
+      hero_subtitle: "Membuat website sederhana dengan HTML",
+      background_color: "#f9fafb",
+      header_color: "#2563eb",
+      text_color: "#1f2937",
+      primary_action_color: "#ffffff",
+      nav_color: "#1e3a8a",
+      font_family: "Plus Jakarta Sans",
+      font_size: 16
+    };
+
+    function applyConfig(config) {
+      document.getElementById('site-title').textContent = config.site_title || defaultConfig.site_title;
+      document.getElementById('hero-heading').textContent = config.hero_heading || defaultConfig.hero_heading;
+      document.getElementById('hero-subtitle').textContent = config.hero_subtitle || defaultConfig.hero_subtitle;
+
+      const app = document.getElementById('app');
+      app.style.backgroundColor = config.background_color || defaultConfig.background_color;
+
+      const header = document.getElementById('header');
+      header.style.backgroundColor = config.header_color || defaultConfig.header_color;
+
+      const font = config.font_family || defaultConfig.font_family;
+      document.body.style.fontFamily = `${font}, sans-serif`;
+
+      const size = config.font_size || defaultConfig.font_size;
+      document.getElementById('hero-heading').style.fontSize = `${size * 2.5}px`;
+      document.getElementById('hero-subtitle').style.fontSize = `${size * 1.1}px`;
+    }
+
+    window.elementSdk.init({
+      defaultConfig,
+      onConfigChange: async (config) => { applyConfig(config); },
+      mapToCapabilities: (config) => ({
+        recolorables: [
+          { get: () => config.background_color || defaultConfig.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+          { get: () => config.nav_color || defaultConfig.nav_color, set: (v) => { config.nav_color = v; window.elementSdk.setConfig({ nav_color: v }); } },
+          { get: () => config.text_color || defaultConfig.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+          { get: () => config.header_color || defaultConfig.header_color, set: (v) => { config.header_color = v; window.elementSdk.setConfig({ header_color: v }); } },
+          { get: () => config.primary_action_color || defaultConfig.primary_action_color, set: (v) => { config.primary_action_color = v; window.elementSdk.setConfig({ primary_action_color: v }); } }
+        ],
+        borderables: [],
+        fontEditable: { get: () => config.font_family || defaultConfig.font_family, set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); } },
+        fontSizeable: { get: () => config.font_size || defaultConfig.font_size, set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); } }
+      }),
+      mapToEditPanelValues: (config) => new Map([
+        ["site_title", config.site_title || defaultConfig.site_title],
+        ["hero_heading", config.hero_heading || defaultConfig.hero_heading],
+        ["hero_subtitle", config.hero_subtitle || defaultConfig.hero_subtitle]
+      ])
+    });
+
+    document.getElementById('hero-btn').addEventListener('click', () => {
+      document.getElementById('hero-btn').textContent = '✓ Terima Kasih!';
+      setTimeout(() => { document.getElementById('hero-btn').textContent = 'Klik Saya'; }, 2000);
+    });
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9fe13b0a97dece4b',t:'MTc3OTE3NDA4OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
